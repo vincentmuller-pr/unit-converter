@@ -1,4 +1,4 @@
-// Elementos
+//1. Elementos
 const lengthButton = document.querySelector("#lengthButton");
 const weightButton = document.querySelector("#weightButton");
 const temperatureButton = document.querySelector("#temperatureButton");
@@ -8,15 +8,18 @@ const quantityLabel = document.querySelector("#quantityLabel")
 const selectFrom = document.querySelector("#unitFrom");
 const selectTo = document.querySelector("#unitTo")
 
-// Estados
+//2. Estados
 let activeButton = null
 
-// Event Listeners
+//3. Event Listeners
 lengthButton.addEventListener("click", () => {change_converter(lengthButton)})
 weightButton.addEventListener("click", () => {change_converter(weightButton)})
 temperatureButton.addEventListener("click", () => {change_converter(temperatureButton)})
 
-// Funciones
+selectFrom.addEventListener("change", (event) => {edit_select(event)})
+selectTo.addEventListener("change", (event) => {edit_select(event)})
+
+//4. Funciones
 
 function change_converter(pressed) {
     //Cambio de color boton
@@ -91,8 +94,16 @@ function add_options(units) {
     })
 }
 
-function edit_select() {
+function edit_select(event) {
+    let selectEdit = null;
+    (event.target.id === "unitFrom")? selectEdit=selectTo : selectEdit=selectFrom
     
+    const disabledOption = selectEdit.querySelector(`option[disabled]`);
+    if (disabledOption !== null) {disabledOption.disabled = false}
+    
+    if (event.target.value === "0") {return}
+    const eqOption = selectEdit.querySelector(`option[value="${event.target.value}"]`);
+    eqOption.disabled = true;
 }
 
 change_converter(lengthButton)
