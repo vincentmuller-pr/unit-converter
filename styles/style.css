@@ -1,0 +1,39 @@
+header {
+    border-bottom: 2px solid;
+}
+
+h1 {
+    text-align: center;
+}
+
+nav {
+    display: flex;
+}
+
+nav button {
+    flex: 1;
+    background-color: lightblue;
+}
+.active {
+    background-color: lightcoral;
+}
+
+.converter-app {
+    border: 2px solid;
+}
+
+.converter-type {
+    border-top: 2px solid;
+    padding: 10px;
+}
+
+.converter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputBox {
+    display: flex;
+    flex-direction: column;
+}
