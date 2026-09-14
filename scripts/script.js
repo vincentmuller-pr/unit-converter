@@ -1,28 +1,38 @@
-const length_button = document.querySelector("#lengthButton");
-const weight_button = document.querySelector("#weightButton");
-const temperature_button = document.querySelector("#temperatureButton");
-let active_button = null
+// Elementos
+const lengthButton = document.querySelector("#lengthButton");
+const weightButton = document.querySelector("#weightButton");
+const temperatureButton = document.querySelector("#temperatureButton");
 
-length_button.addEventListener("click", () => {change_converter(length_button)})
-weight_button.addEventListener("click", () => {change_converter(weight_button)})
-temperature_button.addEventListener("click", () => {change_converter(temperature_button)})
+const quantityLabel = document.querySelector("#quantityLabel")
 
+const selectFrom = document.querySelector("#unitFrom");
+const selectTo = document.querySelector("#unitTo")
+
+// Estados
+let activeButton = null
+
+// Event Listeners
+lengthButton.addEventListener("click", () => {change_converter(lengthButton)})
+weightButton.addEventListener("click", () => {change_converter(weightButton)})
+temperatureButton.addEventListener("click", () => {change_converter(temperatureButton)})
+
+// Funciones
 
 function change_converter(pressed) {
     //Cambio de color boton
-    if (pressed == active_button) {return}
-    if (active_button != null) {active_button.classList.toggle("active");}
-    active_button = pressed;
+    if (pressed == activeButton) {return}
+    if (activeButton != null) {activeButton.classList.toggle("active");}
+    activeButton = pressed;
     pressed.classList.toggle("active")
     
     //Cambio Form
     let units = []
-    const label = document.querySelector("#quantityLabel");
+    ;
     
     
     switch (pressed.getAttribute("id")) {
         case "lengthButton":
-            label.textContent = "Enter the length to convert";
+            quantityLabel.textContent = "Enter the length to convert";
             units = [
                 ["Milimiter (mm)", "mm"],
                 ["Centimeter (cm)", "cm"],
@@ -36,7 +46,7 @@ function change_converter(pressed) {
             break
         
         case "weightButton":
-            label.textContent = "Enter the weight to convert";
+            quantityLabel.textContent = "Enter the weight to convert";
             units = [
                 ["Miligram (mg)", "mg"],
                 ["Gram (g)", "g"],
@@ -47,7 +57,7 @@ function change_converter(pressed) {
             break
         
         case "temperatureButton":
-            label.textContent = "Enter the temperature to convert"
+            quantityLabel.textContent = "Enter the temperature to convert"
             units = [
                 ["Celsius (°C)", "C"],
                 ["Fahrenheit  (°F)", "F"],
@@ -60,8 +70,7 @@ function change_converter(pressed) {
 }
 
 function add_options(units) {
-    const selectFrom = document.querySelector("#unitFrom");
-    const selectTo = document.querySelector("#unitTo")
+    
     
     // Limpiamos ambos Select
     selectFrom.innerHTML = "<option value='0'>-- Select an unit to convert from --</option>";
@@ -82,4 +91,8 @@ function add_options(units) {
     })
 }
 
-change_converter(length_button)
+function edit_select() {
+    
+}
+
+change_converter(lengthButton)
