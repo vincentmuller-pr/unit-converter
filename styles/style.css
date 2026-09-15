@@ -6,6 +6,14 @@ h1 {
     text-align: center;
 }
 
+h2 {
+    margin: 10px 0px
+}
+
+h4 {
+    margin: 16px 0px
+}
+
 nav {
     display: flex;
 }
@@ -23,7 +31,7 @@ nav button {
 }
 
 .converter-type {
-    border-top: 2px solid;
+    border-top: 1px solid;
     padding: 10px;
 }
 
@@ -36,4 +44,11 @@ nav button {
 .inputBox {
     display: flex;
     flex-direction: column;
+}
+
+.converter-result {
+    display: flex;
+    gap: 10px;
+    border-top: 2px solid;
+    padding: 0px 10px;
 }

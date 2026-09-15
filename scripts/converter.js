@@ -23,13 +23,13 @@ export function convert_temperature(value, unitFrom, unitTo) {
     let celsiusValue
     switch (unitFrom) {
         case "C":
-            celsiusValue = value;
+            celsiusValue = parseInt(value);
             break
         case "F":
-            celsiusValue = (value-32)*(5/9);
+            celsiusValue = (parseInt(value)-32)*(5/9);
             break
         case "K":
-            celsiusValue = (value-273.15)
+            celsiusValue = (parseInt(value)-273.15)
             break
     }
     //Luego paso a Kelvin/Fah

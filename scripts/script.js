@@ -1,15 +1,19 @@
+//0. Imports
+import { convert_linear, convert_temperature } from "./converter.js";
+
 //1. Elementos
 const lengthButton = document.querySelector("#lengthButton");
 const weightButton = document.querySelector("#weightButton");
 const temperatureButton = document.querySelector("#temperatureButton");
 
 const quantityLabel = document.querySelector("#quantityLabel")
-
 const selectFrom = document.querySelector("#unitFrom");
 const selectTo = document.querySelector("#unitTo")
 
 const reverseButton = document.querySelector("#reverseButton");
 
+const form = document.querySelector("#converterForm");
+const resultH2 = document.querySelector("#resultTitle")
 //2. Estados
 let activeButton = null
 
@@ -23,6 +27,7 @@ selectTo.addEventListener("change", (event) => {edit_select(event)})
 
 reverseButton.addEventListener("click", () => {reverse_select()})
 
+form.addEventListener("submit", (event) => {submit_form(event)})
 //4. Funciones
 
 function change_converter(pressed) {
@@ -35,7 +40,6 @@ function change_converter(pressed) {
     //Cambio Form
     let units = []
     ;
-    
     
     switch (pressed.getAttribute("id")) {
         case "lengthButton":
@@ -123,6 +127,29 @@ function reverse_select() {
     selectFrom.value = selectTo.value;
     selectTo.value = fromValue;
     
+}
+
+function submit_form(event) {
+    event.preventDefault();
+    const data = new FormData(form);
+    
+    const formValue =  data.get("quantity");
+    const formUnitFrom = data.get("unitFrom");
+    const formUnitTo = data.get("unitTo");
+    
+    let result
+    switch (activeButton.innerHTML) {
+        case "Length":
+            result = convert_linear("length", formValue, formUnitFrom, formUnitTo);
+            break;
+        case "Weight":
+            result = convert_linear("weight", formValue, formUnitFrom, formUnitTo);
+            break;
+        case "Temperature":
+            result = convert_temperature(formValue, formUnitFrom, formUnitTo);
+            break;
+    }
+    resultH2.innerHTML = `Result: ${parseFloat(result.toFixed(3))}${formUnitTo}`
 }
 
 change_converter(lengthButton)
