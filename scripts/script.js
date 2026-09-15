@@ -8,6 +8,8 @@ const quantityLabel = document.querySelector("#quantityLabel")
 const selectFrom = document.querySelector("#unitFrom");
 const selectTo = document.querySelector("#unitTo")
 
+const reverseButton = document.querySelector("#reverseButton");
+
 //2. Estados
 let activeButton = null
 
@@ -18,6 +20,8 @@ temperatureButton.addEventListener("click", () => {change_converter(temperatureB
 
 selectFrom.addEventListener("change", (event) => {edit_select(event)})
 selectTo.addEventListener("change", (event) => {edit_select(event)})
+
+reverseButton.addEventListener("click", () => {reverse_select()})
 
 //4. Funciones
 
@@ -76,8 +80,8 @@ function add_options(units) {
     
     
     // Limpiamos ambos Select
-    selectFrom.innerHTML = "<option value='0'>-- Select an unit to convert from --</option>";
-    selectTo.innerHTML = "<option value='0'>-- Select an unit to convert to --</option>";
+    selectFrom.innerHTML = "<option value='' selected disabled>-- Select an unit to convert from --</option>";
+    selectTo.innerHTML = "<option value='' selected disabled>-- Select an unit to convert to --</option>";
     
     units.forEach((un) => {
         //Opcion para Select From
@@ -98,12 +102,27 @@ function edit_select(event) {
     let selectEdit = null;
     (event.target.id === "unitFrom")? selectEdit=selectTo : selectEdit=selectFrom
     
-    const disabledOption = selectEdit.querySelector(`option[disabled]`);
+    const disabledOption = selectEdit.querySelector(`option[disabled]:not([value=''])`);
     if (disabledOption !== null) {disabledOption.disabled = false}
     
-    if (event.target.value === "0") {return}
     const eqOption = selectEdit.querySelector(`option[value="${event.target.value}"]`);
     eqOption.disabled = true;
+}
+
+function reverse_select() {
+    if (selectFrom.value == selectTo.value) {return}
+    
+    // Recordar que el valor deshabilitado de cada select es la opcion del otro select.
+    if (selectTo.value != '') {selectFrom.querySelector(`option[disabled]:not([value=''])`).disabled = false;}
+    selectFrom.querySelector(`option[value='${selectFrom.value}']`).disabled = true;
+    
+    if (selectFrom.value != '') {selectTo.querySelector(`option[disabled]:not([value=''])`).disabled = false;}
+    selectTo.querySelector(`option[value='${selectTo.value}']`).disabled = true;
+    
+    const fromValue = selectFrom.value;
+    selectFrom.value = selectTo.value;
+    selectTo.value = fromValue;
+    
 }
 
 change_converter(lengthButton)
