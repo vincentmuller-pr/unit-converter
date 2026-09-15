@@ -28,6 +28,26 @@ nav button {
 
 .converter-app {
     border: 2px solid;
+    width: 33%;
+    background-color: rgb(224, 210, 200);
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(122, 122, 122);
+}
+
+@media (max-width: 1200px) {
+    .converter-app {
+        width: 66%;
+    }
+}
+
+@media (max-width: 750px) {
+    .converter-app {
+        width: 100%;
+    }
 }
 
 .converter-type {
